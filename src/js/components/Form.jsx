@@ -10,6 +10,12 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+const mapStateToProps = state => {
+  return {
+    error: state.badWord
+  };
+};
+
 class ConnectedForm extends Component {
   constructor() {
     super();
@@ -37,8 +43,10 @@ class ConnectedForm extends Component {
 
   render() {
     const { title } = this.state;
+
     return (
       <form onSubmit={this.handleSubmit}>
+        {this.props.error && <p>error!</p>}
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input
@@ -58,7 +66,7 @@ class ConnectedForm extends Component {
 }
 
 const Form = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ConnectedForm);
 
